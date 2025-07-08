@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi Vina, ang ganda mo talaga.</title>
+
+    <style>
+
+        html {
+            background-color: #1e1e1e;
+            color: white;
+        }
+
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #box {
+            width: 30vh;
+            background-color: pink;
+            color: black;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #emoji {
+            position: absolute;
+            font-size: 15rem;
+            cursor: grab;
+            user-select: none;
+            touch-action: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="box">
+        <h1>I miss you :<</h1>
+    </div>
+
+    <div id="emoji">😎</div>
+
+    <script>
+        const emoji = document.getElementById('emoji');
+        let isDragging = false;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        //Mouse
+        emoji.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - emoji.offsetLeft;
+        offsetY = e.clientY - emoji.offsetTop;
+        emoji.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            emoji.style.left = (e.clientX - offsetX) + 'px';
+            emoji.style.top = (e.clientY - offsetY) + 'px';
+        }
+        });
+
+        document.addEventListener('mouseup', () => {
+        isDragging = false;
+        emoji.style.cursor = 'grab';
+        });
+
+        //Touch
+        emoji.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        const touch = e.touches[0];
+        offsetX = touch.clientX - emoji.offsetLeft;
+        offsetY = touch.clientY - emoji.offsetTop;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+            const touch = e.touches[0];
+            emoji.style.left = (touch.clientX - offsetX) + 'px';
+            emoji.style.top = (touch.clientY - offsetY) + 'px';
+        }
+        });
+
+        document.addEventListener('touchend', () => {
+        isDragging = false;
+        });
+    </script>
+</body>
+</html>
